@@ -274,6 +274,10 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
     [self setDefaultMaskType:SVProgressHUDMaskTypeNone];
 }
 
++ (void)showTapToDismissFailureWithStatus:(NSString *)string {
+    [[self sharedView] showImage:SVProgressHUDErrorImage status:string duration:-1];
+}
+
 
 #pragma mark - Dismiss Methods
 
@@ -894,8 +898,10 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, string);
     
-    self.fadeOutTimer = [NSTimer timerWithTimeInterval:duration target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
-    [[NSRunLoop mainRunLoop] addTimer:self.fadeOutTimer forMode:NSRunLoopCommonModes];
+    if (duration >= 0) {
+        self.fadeOutTimer = [NSTimer timerWithTimeInterval:duration target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
+        [[NSRunLoop mainRunLoop] addTimer:self.fadeOutTimer forMode:NSRunLoopCommonModes];
+    }
 }
 
 - (void)dismissWithDelay:(NSTimeInterval)delay{

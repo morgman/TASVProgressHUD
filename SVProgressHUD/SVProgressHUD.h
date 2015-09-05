@@ -78,6 +78,7 @@ typedef NS_ENUM(NSUInteger, SVProgressHUDAnimationType) {
 // shows a image + status, use 28x28 white PNGs
 + (void)showImage:(UIImage*)image status:(NSString*)status;
 + (void)showImage:(UIImage*)image status:(NSString*)status maskType:(SVProgressHUDMaskType)maskType __attribute__((deprecated("Use showImage: and setDefaultMaskType: instead.")));
++ (void)showTapToDismissFailureWithStatus:(NSString *)string;
 
 + (void)setOffsetFromCenter:(UIOffset)offset;
 + (void)resetOffsetFromCenter;
